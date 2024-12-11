@@ -21,7 +21,7 @@ controller:
     enableHttps: true
     externalTrafficPolicy: Local
     loadBalancerIP: 10.1.5.130
-    type: loadBalancer
+    type: LoadBalancer
   defaultBackend:
     enabled: true
     nodeSelector:
