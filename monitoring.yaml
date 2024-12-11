@@ -1,0 +1,113 @@
+alertmanager:
+  alertmanagerSpec:
+    replicas: 1
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 50m
+        memory: 100Mi
+    retention: 120h
+    storage:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
+          storageClassName: default
+  config:
+    global:
+      resolve_timeout: 5m
+  enabled: true
+  ingress:
+    annotations:
+      ingress.kubernetes.io/force-ssl-redirect: "false"
+      kubernetes.io/ingress.allow-http: "true"
+    enabled: true
+    hosts:
+    - alertmanager.10.1.5.35.nip.io
+    ingressClassName: nginx
+    pathType: Prefix
+    paths:
+    - /
+    tls:
+    - hosts:
+      - alertmanager.10.1.5.35.nip.io
+      secretName: default-tls-secret
+  insecureSkipVerify: false
+  logLevel: debug
+grafana:
+  adminPassword: admin
+  enabled: true
+  ingress:
+    annotations:
+      ingress.kubernetes.io/force-ssl-redirect: "false"
+      kubernetes.io/ingress.allow-http: "true"
+    enabled: true
+    hosts:
+    - grafana.10.1.5.35.nip.io
+    ingressClassName: nginx
+    path: /
+    tls:
+    - hosts:
+      - grafana.10.1.5.35.nip.io
+      secretName: default-tls-secret
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    enabled: true
+    finalizers:
+    - kubernetes.io/pvc-protection
+    size: 2Gi
+    storageClassName: default
+    type: pvc
+  resources:
+    limits:
+      cpu: 100m
+      memory: 200Mi
+    requests:
+      cpu: 50m
+      memory: 100Mi
+kubeControllerManager:
+  enabled: false
+kubeEtcd:
+  enabled: true
+kubeProxy:
+  enabled: false
+kubeScheduler:
+  enabled: false
+prometheus:
+  enabled: true
+  ingress:
+    annotations:
+      ingress.kubernetes.io/force-ssl-redirect: "false"
+      kubernetes.io/ingress.allow-http: "true"
+    enabled: true
+    hosts:
+    - prometheus.10.1.5.35.nip.io
+    ingressClassName: nginx
+    pathType: Prefix
+    paths:
+    - /
+    tls:
+    - hosts:
+      - prometheus.10.5.1.35.nip.io
+      secretName: default-tls-secret
+  prometheusSpec:
+    replicas: 1
+    resources: {}
+    retention: 7d
+    retentionSize: 30GB
+    serviceMonitorSelectorNilUsesHelmValues: false
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 30Gi
+          storageClassName: default

@@ -1,0 +1,30 @@
+controller:
+  admissionWebhooks:
+    enabled: true
+  containerPort:
+    http: 80
+    https: 443
+  extraArgs:
+    default-ssl-certificate: ingress-nginx/default-ssl-secret
+  ingressClass: nginx
+  kind: DaemonSet
+  metrics:
+    additionalLabels:
+      release: monitoring
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  nodeSelector:
+    kubernetes.io/os: linux
+  service:
+    enableHttp: true
+    enableHttps: true
+    externalTrafficPolicy: Local
+    loadBalancerIP: 10.1.5.130
+    type: loadBalancer
+  defaultBackend:
+    enabled: true
+    nodeSelector:
+      kubernetes.io/os: linux
+  rbac:
+    create: true
