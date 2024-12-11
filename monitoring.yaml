@@ -28,14 +28,14 @@ alertmanager:
       kubernetes.io/ingress.allow-http: "true"
     enabled: true
     hosts:
-    - alertmanager.10.1.5.35.nip.io
+    - alertmanager.10.1.5.130.nip.io
     ingressClassName: nginx
     pathType: Prefix
     paths:
     - /
     tls:
     - hosts:
-      - alertmanager.10.1.5.35.nip.io
+      - alertmanager.10.1.5.130.nip.io
       secretName: default-tls-secret
   insecureSkipVerify: false
   logLevel: debug
@@ -48,12 +48,12 @@ grafana:
       kubernetes.io/ingress.allow-http: "true"
     enabled: true
     hosts:
-    - grafana.10.1.5.35.nip.io
+    - grafana.10.1.5.130.nip.io
     ingressClassName: nginx
     path: /
     tls:
     - hosts:
-      - grafana.10.1.5.35.nip.io
+      - grafana.10.1.5.130.nip.io
       secretName: default-tls-secret
   persistence:
     accessModes:
@@ -87,14 +87,14 @@ prometheus:
       kubernetes.io/ingress.allow-http: "true"
     enabled: true
     hosts:
-    - prometheus.10.1.5.35.nip.io
+    - prometheus.10.1.5.130.nip.io
     ingressClassName: nginx
     pathType: Prefix
     paths:
     - /
     tls:
     - hosts:
-      - prometheus.10.5.1.35.nip.io
+      - prometheus.10.1.5.130.nip.io
       secretName: default-tls-secret
   prometheusSpec:
     replicas: 1
