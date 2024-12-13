@@ -6,6 +6,11 @@ controller:
     https: 443
   extraArgs:
     default-ssl-certificate: ingress-nginx/default-ssl-secret
+  ingressClassResource:
+    name: nginx
+    enabled: true
+    default: false
+    controllerValue: "k8s.io/ingress-nginx"
   ingressClass: nginx
   kind: DaemonSet
   metrics:
@@ -19,7 +24,6 @@ controller:
   service:
     enableHttp: true
     enableHttps: true
-    externalTrafficPolicy: Local
     loadBalancerIP: 10.1.5.130
     type: LoadBalancer
   defaultBackend:
