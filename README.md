@@ -164,3 +164,9 @@ helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 kubectl -n kubernetes-dashboard apply -f kubernetes-dashboard/ingress.yml
 ```
+
+
+# URLs
+
+```bash
+```
