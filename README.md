@@ -156,3 +156,11 @@ kubectl create ns monitoring
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm install -n monitoring monitoring prometheus-community/kube-prometheus-stack -f monitoring.yaml
 ```
+
+# Instalar kubernetes dashboard
+
+```bash
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
+kubectl -n kubernetes-dashboard apply -f kubernetes-dashboard/ingress.yml
+```
