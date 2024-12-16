@@ -165,8 +165,22 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
 kubectl -n kubernetes-dashboard apply -f kubernetes-dashboard/ingress.yml
 ```
 
+obtener token
+
+````bash
+kubectl create serviceaccount k8sadmin -n kube-system
+kubectl create clusterrolebinding k8sadmin --clusterrole=cluster-admin --serviceaccount=kube-system:k8sadmin
+kubectl -n kube-system create token k8sadmin
+```
 
 # URLs
 
 ```bash
+$ kubectl get ingress -A
+NAMESPACE              NAME                                      CLASS   HOSTS                            ADDRESS      PORTS     AGE
+kubernetes-dashboard   svc-dashboard                             nginx   dashboard.10.1.5.130.nip.io      10.1.5.130   80        50m
+monitoring             monitoring-grafana                        nginx   grafana.10.1.5.130.nip.io        10.1.5.130   80, 443   3d5h
+monitoring             monitoring-kube-prometheus-alertmanager   nginx   alertmanager.10.1.5.130.nip.io   10.1.5.130   80, 443   3d5h
+monitoring             monitoring-kube-prometheus-prometheus     nginx   prometheus.10.1.5.130.nip.io     10.1.5.130   80, 443   3d5h
+test-ns                ingress-nginx                             nginx   test-aks.10.1.5.130.nip.io       10.1.5.130   80        5d6h
 ```
