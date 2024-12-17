@@ -150,6 +150,13 @@ ETag: "6745ef54-267"
 Accept-Ranges: bytes
 ```
 
+# Upgrade AKS a 1.29.4
+
+```bash
+az aksarc upgrade --name akswelab01 --resource-group rg-labhci-aks-sandbox-sc --kubernetes-version 1.29.4 --yes
+```
+
+
 # Instalar monitorizacion
 ```bash
 kubectl create ns monitoring
