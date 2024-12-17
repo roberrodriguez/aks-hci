@@ -117,16 +117,19 @@ C:\Users\RRODRIGUEZ5\aks\aks-hci>az k8s-runtime load-balancer create --resource-
 C:\Users\RRODRIGUEZ5\aks\aks-hci>
 ```
 
-# Instalar ingress en modo nodeport
+# Instalar ingresst
 ```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 kubectl create ns ingress-nginx
 openssl req -nodes -newkey rsa:4096 -keyout default-ssl.key.pem -new -x509 -days 36500 -sha256 -out default-ssl.cert.pem -subj "/C=ES/ST=ES/L=ES/O=CELSA/OU=CELSA/CN=default-ssl"
 
+# Certificado autofirmado que se usará por defecto
 kubectl -n ingress-nginx create secret tls default-ssl-secret --key=default-ssl.key.pem --cert=default-ssl.cert.pem
 
-
-helm install -n ingress-nginx ingress-nginx ingress-nginx/ingress-nginx -f ingress-nginx-nodeport-values.yaml
+# En los valores es necesario poner tolerations para ejecutar los pods en los nodos de control plane si usamos externalTrafficPolicy: Local
+# Este valor es necesario para obtener la IP de del cliente que accede al Ingress pero requiere que se ejecuten pods en todos los nodos
+# El balanceador envía carga también a los nodos de control plane, por lo que es necesario ejecutar tambien pods en estos
+helm install -n ingress-nginx ingress-nginx ingress-nginx/ingress-nginx -f ingress-nginx-values.yaml
 ```
 
 # Instalar app de ejemplo
